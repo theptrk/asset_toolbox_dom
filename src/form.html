@@ -2,83 +2,102 @@
 <html>
 <head>
     <title>Form</title>
+    <style type="text/css">
+      div {
+        margin: 15px 0px;
+      }
+    </style>
 </head>
 <body>
-    <!-- This form handles all events -->
-    <h1>Form Handling with javascript</h1>
-    <p>
-        This solution supports IE. So it does not use:
-        <ul>
-            <li>new FormData(form) with the "formdata" event</li>
-            <li>Array.from</li>
-        </ul>
-    </p>
-    <form id="my-form">
-            
-        <div>
-            <label for="todo_input">Enter your todo:</label>
-            <input type="text" name="title" id="todo_input" 
-                placeholder="Buy milk" required autocomplete="off">
-            <small>You are a great doer</small>
-        </div>
+  <!-- This form handles all events -->
+  <h1>Form Handling with javascript</h1>
+  <p>
+    This solution supports IE. So it does not use:
+    <ul>
+      <li>new FormData(form) with the "formdata" event</li>
+      <li>Array.from</li>
+    </ul>
+  </p>
+  <p>This solution does not handle radio buttons</p>
+  <hr>
+  <form id="my-form">
+          
+    <div>
+      <label for="todo_input">Enter your todo (text input):</label>
+      <input type="text" name="title" id="todo_input" 
+              placeholder="Buy milk" required autocomplete="off">
+      <small>You are a great doer</small>
+    </div>
 
-        <div>
-            <label for="cars">Choose a car:</label>
-            <select id="cars" name="car">
-                <option disabled selected value> -- select an option -- </option>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-            </select>
-        </div>
+    <label for="remember">
+      <input type="checkbox" name="remember" id="remember_checkbox">
+      Remember me
+    </label>
 
-        <div>
-            <label for="notes_textarea">Notes:</label>
-            <textarea rows="4" cols="50" name="notes" id="notes_textarea"></textarea>
-        </div>
+    <div>
+        <label for="cars">Choose a car (select):</label>
+        <select id="cars" name="car">
+              <option disabled selected value> -- select an option -- </option>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
 
-        <button type="submit">Create</button>
-        <button type="reset">Reset Form</button>
-    </form>
-    <script type="text/javascript">
-        const form = document.getElementById("my-form")
-        form.addEventListener("submit", handleFormSubmit);
+    <div>
+        <label for="notes_textarea">Notes (textarea):</label>
+        <textarea rows="4" cols="50" name="notes" id="notes_textarea"></textarea>
+    </div>
 
-        function handleFormSubmit(e) {
-            e.preventDefault();
+    <button type="submit">Create</button>
+    <button type="reset">Reset Form</button>
+  </form>
+  <script type="text/javascript">
+    const form = document.getElementById("my-form")
+    form.addEventListener("submit", handleFormSubmit);
 
-            formData = getFormData(form)
+    function handleFormSubmit(e) {
+      e.preventDefault();
 
-            // TODO: send data somewhere
-            alert(JSON.stringify(formData))
+      formData = getFormData(form)
 
-            form.reset();
-        }
+      // TODO: send data somewhere
+      alert(JSON.stringify(formData))
 
-        function getFormData(form) {
-            var formData = {};
+      form.reset();
+    }
 
-            // Note: form.elements is not an Array so you cannot forEach
-            // TODO: change this to use transducers
-            for (var i = 0; i < form.elements.length; i++) {
-                var formField = form.elements[i];
-                if (isUserSubmitable(formField)) {
-                    formData[formField.name] = formField.value
-                }
-            }
-            return formData;
-        }
+    function getFormData(form) {
+      var formData = {};
 
-        /**
-         * @param  {formField}
-         * @return {Boolean}
-         */
-        function isUserSubmitable(formField) {
-            return formField.tagName === 'INPUT' 
-                || formField.tagName === 'TEXTAREA'
-                || formField.tagName === 'SELECT';
-        }
-    </script>
+      // Note: form.elements is not an Array so you cannot forEach
+      // TODO: change this to use transducers
+      for (var i = 0; i < form.elements.length; i++) {
+          var formField = form.elements[i];
+          if (isUserSubmitable(formField)) {
+              formData[formField.name] = getFormFieldValue(formField)
+          }
+      }
+      return formData;
+    }
+
+    /**
+     * @param  {formField}
+     * @return {Boolean}
+     */
+    function isUserSubmitable(formField) {
+      return formField.tagName === 'INPUT' 
+          || formField.tagName === 'TEXTAREA'
+          || formField.tagName === 'SELECT';
+    }
+
+    function getFormFieldValue(formField) {
+      if (formField.tagName === 'INPUT' && formField.type === 'checkbox') {
+        return formField.checked
+      }
+      return formField.value
+    }
+  </script>
 </body>
 </html>
