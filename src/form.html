@@ -5,7 +5,14 @@
 </head>
 <body>
     <!-- This form handles all events -->
-    <h1>Asset: Form Handling with javascript</h1>
+    <h1>Form Handling with javascript</h1>
+    <p>
+        This solution supports IE. So it does not use:
+        <ul>
+            <li>new FormData(form) with the "formdata" event</li>
+            <li>Array.from</li>
+        </ul>
+    </p>
     <form id="my-form">
             
         <div>
@@ -41,32 +48,26 @@
         function handleFormSubmit(e) {
             e.preventDefault();
 
-            // IE cannot use FormData from the DOM API
-            formData = getFormData(form.elements)
-
-            alert(JSON.stringify(formData))
+            formData = getFormData(form)
 
             // TODO: send data somewhere
+            alert(JSON.stringify(formData))
+
             form.reset();
         }
 
-        /**
-         * @param  {[type]}
-         * @return {[type]}
-         */
-        function getFormData(formElements) {
-            // formElements is array like but not an array
-            // IE cannot use Array.from
-            elements = Array.prototype.slice.call(formElements);
-            elements = elements.filter(isUserSubmitable);
+        function getFormData(form) {
+            var formData = {};
 
-            // IE cannot use FormData from the DOM API
-            return elements.reduce(function(acc, formField) {
+            // Note: form.elements is not an Array so you cannot forEach
+            // TODO: change this to use transducers
+            for (var i = 0; i < form.elements.length; i++) {
+                var formField = form.elements[i];
                 if (isUserSubmitable(formField)) {
-                    acc[formField.name] = formField.value
+                    formData[formField.name] = formField.value
                 }
-                return acc;
-            }, {});
+            }
+            return formData;
         }
 
         /**
