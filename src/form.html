@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+</head>
+<body>
+    <!-- This form handles all events -->
+    <h1>Asset: Form Handling with javascript</h1>
+    <form id="my-form">
+            
+        <div>
+            <label for="todo_input">Enter your todo:</label>
+            <input type="text" name="title" id="todo_input" 
+                placeholder="Buy milk" required autocomplete="off">
+            <small>You are a great doer</small>
+        </div>
+
+        <div>
+            <label for="cars">Choose a car:</label>
+            <select id="cars" name="car">
+                <option disabled selected value> -- select an option -- </option>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="notes_textarea">Notes:</label>
+            <textarea rows="4" cols="50" name="notes" id="notes_textarea"></textarea>
+        </div>
+
+        <button type="submit">Create</button>
+        <button type="reset">Reset Form</button>
+    </form>
+    <script type="text/javascript">
+        const form = document.getElementById("my-form")
+        form.addEventListener("submit", handleFormSubmit);
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            // IE cannot use FormData from the DOM API
+            formData = getFormData(form.elements)
+
+            alert(JSON.stringify(formData))
+
+            // TODO: send data somewhere
+            form.reset();
+        }
+
+        /**
+         * @param  {[type]}
+         * @return {[type]}
+         */
+        function getFormData(formElements) {
+            // formElements is array like but not an array
+            // IE cannot use Array.from
+            elements = Array.prototype.slice.call(formElements);
+            elements = elements.filter(isUserSubmitable);
+
+            // IE cannot use FormData from the DOM API
+            return elements.reduce(function(acc, formField) {
+                if (isUserSubmitable(formField)) {
+                    acc[formField.name] = formField.value
+                }
+                return acc;
+            }, {});
+        }
+
+        /**
+         * @param  {formField}
+         * @return {Boolean}
+         */
+        function isUserSubmitable(formField) {
+            return formField.tagName === 'INPUT' 
+                || formField.tagName === 'TEXTAREA'
+                || formField.tagName === 'SELECT';
+        }
+    </script>
+</body>
+</html>
