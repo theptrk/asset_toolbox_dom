@@ -10,15 +10,17 @@
 </head>
 <body>
   <!-- This form handles all events -->
-  <h1>Form Handling with javascript</h1>
+  <h1>Form Handling with JavaScript</h1>
   <p>
-    This solution supports IE. So it does not use:
+    This solution uses a function "getFormData" to get the data from these types of form fields
     <ul>
-      <li>new FormData(form) with the "formdata" event</li>
-      <li>Array.from</li>
+      <li>text input</li>
+      <li>checkbox input</li>
+      <li>select</li>
+      <li>textarea</li>
     </ul>
+    Note: This solution does not handle radio buttons
   </p>
-  <p>This solution does not handle radio buttons</p>
   <hr>
   <form id="my-form">
           
@@ -53,6 +55,13 @@
     <button type="submit">Create</button>
     <button type="reset">Reset Form</button>
   </form>
+  <p>
+    This solution supports IE. So it does not use:
+    <ul>
+      <li>new FormData(form) with the "formdata" event</li>
+      <li>Array.from</li>
+    </ul>
+  </p>
   <script type="text/javascript">
     const form = document.getElementById("my-form")
     form.addEventListener("submit", handleFormSubmit);
