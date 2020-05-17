@@ -1,3 +1,3 @@
 # asset_toolbox_dom
 
-[lin](/src/form.html)
+[get form data with javascript](/src/form.html)
