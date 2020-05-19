@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Website</title>
+    <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+</head>
+<body>
+  <h1>Hello html</h1>
+
+  <h2>Resource Create</h2>
+  <form id="my-form">
+    <div>
+      <label for="todo_input">Enter your todo (text input):</label>
+      <input type="text" name="title" id="todo_input" 
+              placeholder="Buy milk" required autocomplete="off">
+      <button type="submit">Submit</button> 
+    </div>
+  </form>
+
+  <div>
+    <h2>Resource Read/Update</h2>
+    <ul id='resource_list'></ul>
+  </div>
+  <div>
+    <h2>Resource Read/Update After Modification</h2>
+    <ul id='resource_list_completed'></ul>
+  </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+  https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyDxlbTAsAn-hpsrYlOnVMJICE_NvNNHZnw",
+    authDomain: "boomtodo-3312e.firebaseapp.com",
+    databaseURL: "https://boomtodo-3312e.firebaseio.com",
+    projectId: "boomtodo-3312e",
+    storageBucket: "boomtodo-3312e.appspot.com",
+    messagingSenderId: "168040082492",
+    appId: "1:168040082492:web:872c2dea9a826605bb2739",
+    measurementId: "G-677J2F39RH"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+  <script src='app.js'></script>
+</body>
+</html>
