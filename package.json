@@ -1,0 +1,22 @@
+{
+  "name": "asset_toolbox_dom",
+  "version": "1.0.0",
+  "engines": {
+    "node": "14.3.x"
+  },
+  "description": "[get form data with javascript](/src/form.html)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theptrk/asset_toolbox_dom.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theptrk/asset_toolbox_dom/issues"
+  },
+  "homepage": "https://github.com/theptrk/asset_toolbox_dom#readme"
+}
