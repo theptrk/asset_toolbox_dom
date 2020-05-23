@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XHR to API</title>
+</head>
+<body>
+  <h1>XHR to API</h1>
+  <p>
+      XMLHttpRequest was first shipped in 1999 and became a web standard in 2006. 
+      The requests are often referred to as AJAX calls.
+  </p>
+  <h2>Open Weather GET request</h2>
+  <div id='weather_box'>
+    <h3 id='temp'></h3>
+    <div id='output_box'></div>
+    <div id='json_box'></div>
+  </div>
+  <button id='check_weather'>Check weather</button>
+  <script type="text/javascript">
+    var lat = 37.783533;
+    var lon = -122.493334;
+    var exclude = "daily,hourly";
+    var API_KEY = "9e3f9ebc8da776c7cc6f8f06b80a9203";
+    var base = "http://api.openweathermap.org/data/2.5/weather?"
+    var url = base + "lat=" + lat
+      + "&lon=" + lon
+      + "&appid=" + API_KEY
+      + "&units=imperial";
+
+    var innerHTML = innerHTMLHelper();
+
+    var checkWeather = document.getElementById("check_weather")
+    checkWeather.onclick = function() {
+      getJSON(url, (data) => {
+        var json = JSON.stringify(data, null, 2);
+        innerHTML("json_box", `<pre>${json}</pre>`)
+
+        var main = data.response.main;
+        var output = `<span> 
+          conditions ${data.response.weather[0].main} -
+          feels like ${main.feels_like}&#176; -
+          humidity ${main.humidity} -
+          high ${main.temp_max}&#176; -
+          low ${main.temp_min}&#176;
+        </span>`
+
+        innerHTML("output_box", output)
+        innerHTML("temp", `Temperature: ${main.temp}&#176;`)
+      })
+    }
+
+    function getJSON(url, cb) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url)
+      xhr.onload = function() {
+        cb({
+          status: this.status,
+          response: JSON.parse(this.response)
+        })
+      }
+      xhr.send();
+    }
+
+    function innerHTMLHelper() {
+      var memo = {} 
+      return function(id, html) {
+        if (!memo[id]) {
+          memo[id] = document.getElementById(id)
+        }
+        memo[id].innerHTML = html
+      }
+    }
+  </script>
+</body>
+</html>

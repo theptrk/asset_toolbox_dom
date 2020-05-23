@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+    <style type="text/css">
+        .crawl {
+           color: #ffed00; 
+           background-color: #101010;
+           height: 400px;
+           font-size:3.5em;
+        }
+    </style>
+</head>
+<body>
+    <div style="background-color:moccasin">
+        <h1> Star Wars Episode 1 Fan Page </h1>
+        <h2> Title: <span id="title"></span></h2>
+        <h2> Director: <span id="director"></span></h2>
+        <h2> Release Date: <span id="release_date"></span></h2>
+    </div>
+    <div>
+        <marquee id="crawl" class="crawl" direction="up" scrolldelay="250">
+            LOREM LOREM LOREM
+        </marquee>
+    </div>
+    <script type="text/javascript">
+        // https://swapi.dev/documentation#films
+        fetch('https://swapi.dev/api/films/1/')
+          .then(response => response.json())
+          .then(data => render(data));
+
+        function render(data) {
+            document.getElementById("crawl").innerHTML = data.opening_crawl;
+            document.getElementById("title").innerHTML = data.title;
+            document.getElementById("director").innerHTML = data.director;
+            document.getElementById("release_date").innerHTML = data.release_date;
+        }
+    </script>
+</body>
+</html>
