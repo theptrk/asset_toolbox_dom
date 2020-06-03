@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+</head>
+<body>
+  <h1>Get form data with javascript</h1>
+  <form id="my-form">
+    <label for="field1_input">Field name:</label>
+    <input type="text" name="title" id="field1_input" 
+      placeholder="Some Value" required autocomplete="off">
+    <button type="submit">Create</button>
+  </form>
+  <script type="text/javascript">
+    const form = document.getElementById("my-form")
+    const field1 = document.getElementById("field1_input")
+
+    form.addEventListener("submit", handleFormSubmit);
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+
+      alert(field1.value);
+    }
+  </script>
+</body>
+</html>
